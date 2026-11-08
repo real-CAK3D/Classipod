@@ -58,7 +58,7 @@ dependencies:
   volume_controller: ^3.7.1
   window_manager: ^0.5.2
   # CAK3D fork: free online sources (podcast RSS feeds, YouTube audio).
-  xml: ^7.1.0
+  xml: ^6.6.1
   youtube_explode_dart: ^3.1.0
 
 dev_dependencies:
