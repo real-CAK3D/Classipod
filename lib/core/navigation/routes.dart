@@ -19,6 +19,8 @@ import 'package:classipod/features/music/cover_flow/screens/cover_flow_album_sel
 import 'package:classipod/features/music/cover_flow/screens/cover_flow_screen.dart';
 import 'package:classipod/features/music/genres/screens/genre_songs_screen.dart';
 import 'package:classipod/features/music/genres/screens/genres_screen.dart';
+import 'package:classipod/features/online/online_catalogs.dart';
+import 'package:classipod/features/online/online_screens.dart';
 import 'package:classipod/features/music/playlist/screens/playlist_rename_screen.dart';
 import 'package:classipod/features/music/playlist/screens/playlist_songs_more_options_modal.dart';
 import 'package:classipod/features/music/playlist/screens/playlist_songs_screen.dart';
@@ -80,7 +82,14 @@ enum Routes {
   genreSongs,
   genresSongsMoreOptions,
   search,
-  searchMoreOptions;
+  searchMoreOptions,
+  onlineMenu,
+  radio,
+  podcasts,
+  podcastEpisodes,
+  youTube,
+  spotify,
+  otherApp;
 
   @override
   String toString() {
@@ -155,6 +164,20 @@ enum Routes {
         return context.localization.searchScreenTitle;
       case searchMoreOptions:
         return context.localization.searchScreenTitle;
+      case onlineMenu:
+        return "Online";
+      case radio:
+        return "Radio";
+      case podcasts:
+        return "Podcasts";
+      case podcastEpisodes:
+        return "Episodes";
+      case youTube:
+        return "YouTube";
+      case spotify:
+        return "Spotify";
+      case otherApp:
+        return "Other App";
     }
   }
 }
@@ -700,6 +723,69 @@ final routerProvider = Provider(
                             ),
                           ),
                         ],
+                      ),
+                    ],
+                  ),
+                  GoRoute(
+                    path: Routes.onlineMenu.toString(),
+                    name: Routes.onlineMenu.name,
+                    parentNavigatorKey: menuNavigatorKey,
+                    pageBuilder: (context, state) =>
+                        const CupertinoPage(child: OnlineMenuScreen()),
+                    routes: [
+                      GoRoute(
+                        path: Routes.radio.name,
+                        name: Routes.radio.name,
+                        parentNavigatorKey: rootNavigatorKey,
+                        pageBuilder: (context, state) => const CupertinoPage(
+                          child: ScreenPageContent(child: RadioScreen()),
+                        ),
+                      ),
+                      GoRoute(
+                        path: Routes.podcasts.name,
+                        name: Routes.podcasts.name,
+                        parentNavigatorKey: rootNavigatorKey,
+                        pageBuilder: (context, state) => const CupertinoPage(
+                          child: ScreenPageContent(child: PodcastsScreen()),
+                        ),
+                        routes: [
+                          GoRoute(
+                            path: Routes.podcastEpisodes.name,
+                            name: Routes.podcastEpisodes.name,
+                            parentNavigatorKey: rootNavigatorKey,
+                            pageBuilder: (context, state) => CupertinoPage(
+                              child: ScreenPageContent(
+                                child: PodcastEpisodesScreen(
+                                  show: state.extra as Podcast,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      GoRoute(
+                        path: Routes.youTube.name,
+                        name: Routes.youTube.name,
+                        parentNavigatorKey: rootNavigatorKey,
+                        pageBuilder: (context, state) => const CupertinoPage(
+                          child: ScreenPageContent(child: YouTubeScreen()),
+                        ),
+                      ),
+                      GoRoute(
+                        path: Routes.spotify.name,
+                        name: Routes.spotify.name,
+                        parentNavigatorKey: rootNavigatorKey,
+                        pageBuilder: (context, state) => const CupertinoPage(
+                          child: ScreenPageContent(child: SpotifyScreen()),
+                        ),
+                      ),
+                      GoRoute(
+                        path: Routes.otherApp.name,
+                        name: Routes.otherApp.name,
+                        parentNavigatorKey: rootNavigatorKey,
+                        pageBuilder: (context, state) => const CupertinoPage(
+                          child: ScreenPageContent(child: OtherAppScreen()),
+                        ),
                       ),
                     ],
                   ),

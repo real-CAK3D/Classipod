@@ -10,6 +10,7 @@ import 'package:classipod/core/services/playback/playback_session.dart';
 import 'package:classipod/core/subsonic/subsonic_controller.dart';
 import 'package:classipod/features/music/album/models/album_model.dart';
 import 'package:classipod/features/music/playlist/models/playlist_model.dart';
+import 'package:classipod/features/online/online_catalogs.dart';
 import 'package:classipod/features/now_playing/models/now_playing_model.dart';
 import 'package:classipod/features/now_playing/provider/now_playing_details_provider.dart';
 import 'package:classipod/features/settings/controller/settings_preferences_controller.dart';
@@ -27,6 +28,14 @@ final libraryAudioHandlerProvider = Provider<LibraryAudioHandler>((ref) {
   final handler = LibraryAudioHandler(
     ref.read(audioPlayerProvider),
     resolveSource: (song) async {
+      // YouTube videos are queued as yt:<id>; swap in the audio stream now.
+      final path = song.filePath;
+      if (path != null && path.startsWith(youTubeScheme)) {
+        final url = await YouTubeAudio.audioUrl(
+          path.substring(youTubeScheme.length),
+        );
+        return song.copyWith(filePath: url).toAudioSource() as UriAudioSource;
+      }
       if (!song.isSubsonic) return song.toAudioSource() as UriAudioSource;
       final remote = ref.read(subsonicControllerProvider).value;
       final context = rootNavigatorKey.currentContext;

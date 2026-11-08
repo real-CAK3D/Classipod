@@ -15,6 +15,7 @@ import 'package:go_router/go_router.dart';
 
 enum _MainMenuDisplayItems {
   music,
+  online,
   settings,
   shuffleSongs,
   nowPlaying;
@@ -23,6 +24,8 @@ enum _MainMenuDisplayItems {
     switch (this) {
       case music:
         return context.localization.musicMenuScreenTitle;
+      case online:
+        return 'Online';
       case settings:
         return context.localization.settingsScreenTitle;
       case shuffleSongs:
@@ -65,6 +68,9 @@ class _MainMenuScreenState extends ConsumerState<MainMenuScreen>
       case _MainMenuDisplayItems.music:
         context.goNamed(Routes.musicMenu.name);
         break;
+      case _MainMenuDisplayItems.online:
+        context.goNamed(Routes.onlineMenu.name);
+        break;
       case _MainMenuDisplayItems.nowPlaying:
         await _navigateToNowPlayingScreen();
         break;
@@ -92,6 +98,7 @@ class _MainMenuScreenState extends ConsumerState<MainMenuScreen>
     if (!mounted || context.router.locationNamed != routeName) return;
     switch (displayItems[selectedDisplayItem]) {
       case _MainMenuDisplayItems.music:
+      case _MainMenuDisplayItems.online:
         ref.read(splitScreenControllerProvider.notifier).changeSplitScreenType =
             SplitScreenType.albumArt;
         break;

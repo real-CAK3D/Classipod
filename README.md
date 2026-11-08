@@ -1,3 +1,9 @@
+> **CAK3D fork** ([real-CAK3D/Classipod](https://github.com/real-CAK3D/Classipod)) of [adeeteya/Classipod](https://github.com/adeeteya/Classipod) by Aditya R.
+> Adds a main-menu **Online** section: free internet **Radio** (Radio Browser), **Podcasts** (search, subscribe, RSS episodes),
+> **YouTube** audio (youtube_explode_dart; plays with the screen off, no Premium), and click-wheel control of **Spotify** or any
+> other app's player. Long-press stars a station, subscribes to a show or saves a video. Original license (BSD 4-Clause) applies.
+> This product includes software developed by Aditya R.
+
 <div align="center">
 
 # 🎵 ClassiPod
